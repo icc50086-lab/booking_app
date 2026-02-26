@@ -1,0 +1,27 @@
+<h1>予約一覧</h1>
+
+<% @reservations.each do |r| %>
+  <div style="border:1px solid #ccc; margin-bottom:20px; padding:10px;">
+    <% if r.room.image.attached? %>
+  <%= image_tag r.room.image, width: 300 %>
+<% else %>
+  <%= image_tag "default_room.png", width: 300 %>
+<% end %>
+    <h3><%= r.room.name %></h3>
+
+    <p><%= r.room.detail %></p>
+
+    <% nights = (r.check_out - r.check_in).to_i %>
+    <p>宿泊日数：<%= nights %> 泊</p>
+    <p>合計料金：¥<%= r.room.price * r.people * nights %></p>
+
+    <p>チェックイン：<%= r.check_in.strftime("%Y/%m/%d") %></p>
+    <p>チェックアウト：<%= r.check_out.strftime("%Y/%m/%d") %></p>
+
+    <p>
+      予約確定日時：
+      <%= r.created_at.strftime("%Y/%m/%d %H:%M") %>
+    </p>
+
+  </div>
+<% end %>

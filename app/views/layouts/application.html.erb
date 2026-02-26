@@ -18,6 +18,35 @@
   </head>
 
   <body>
-    <%= yield %>
-  </body>
+
+<header>
+  <% if user_signed_in? %>
+
+    <% if current_user.icon.attached? %>
+      <%= image_tag current_user.icon, width: 40, height: 40 %>
+    <% else %>
+      <%= image_tag "default_icon.png", width: 40, height: 40 %>
+    <% end %>
+
+    ようこそ、<%= current_user.name %> さん |
+
+    <%= link_to "施設一覧", rooms_path %> |
+    <%= link_to "予約一覧", reservations_path %> |
+    <%= link_to "プロフィール", edit_profile_path %> |
+    <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %>
+
+  <% else %>
+    <%= link_to "ログイン", new_user_session_path %> |
+    <%= link_to "新規登録", new_user_registration_path %>
+  <% end %>
+</header>
+
+<hr>
+
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+
+<%= yield %>
+
+</body>
 </html>

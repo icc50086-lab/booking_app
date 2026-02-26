@@ -1,0 +1,30 @@
+<h1>予約確認</h1>
+
+<p>施設名：<%= @room.name %></p>
+
+<p>チェックイン：<%= @reservation.check_in.strftime("%Y/%m/%d") %></p>
+<p>チェックアウト：<%= @reservation.check_out.strftime("%Y/%m/%d") %></p>
+
+<% nights = (@reservation.check_out - @reservation.check_in).to_i %>
+<% total_price = @room.price * @reservation.people * nights %>
+
+<p>宿泊日数：<%= nights %> 泊</p>
+<p>人数：<%= @reservation.people %> 人</p>
+<p>支払い金額：¥<%= total_price %></p>
+
+<hr>
+
+<%= form_with model: [@room, @reservation],
+  url: room_reservations_path(@room),
+  method: :post,
+  data: { turbo: false },
+  local: true do |f| %>
+  <!-- confirmで入力した値をcreateへ引き継ぐ -->
+  <%= f.hidden_field :check_in, value: @reservation.check_in %>
+  <%= f.hidden_field :check_out, value: @reservation.check_out %>
+  <%= f.hidden_field :people, value: @reservation.people %>
+
+  <%= f.submit "予約を確定する" %>
+<% end %>
+
+<p><%= link_to "入力に戻る", new_room_reservation_path(@room) %></p>
