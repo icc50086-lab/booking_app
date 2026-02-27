@@ -1,6 +1,6 @@
 class ReservationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_room, only: [:new, :confirm, :create]
+  before_action :set_room, only: [ :new, :confirm, :create ]
 
   def index
     @reservations = current_user.reservations

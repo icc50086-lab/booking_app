@@ -9,16 +9,16 @@ Rails.application.routes.draw do
       get :search
     end
 
-    resources :reservations, only: [:new, :create] do
+    resources :reservations, only: [ :new, :create ] do
     collection do
       post :confirm
     end
   end
 end
 
-  resources :reservations, only: [:index, :destroy, :edit, :update]
+  resources :reservations, only: [ :index, :destroy, :edit, :update ]
 
-  resource :profile, only: [:edit, :update]
+  resource :profile, only: [ :edit, :update ]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

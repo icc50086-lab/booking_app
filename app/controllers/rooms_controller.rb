@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  before_action :authenticate_user!, except: [:search]
+  before_action :authenticate_user!, except: [ :search ]
 
   # 自分の施設一覧
   def index
@@ -9,7 +9,7 @@ class RoomsController < ApplicationController
   def search
     @rooms = Room.order(created_at: :desc)
 
-    if params[:address].present? && ["東京", "大阪", "京都", "札幌"].include?(params[:address])
+    if params[:address].present? && [ "東京", "大阪", "京都", "札幌" ].include?(params[:address])
       @rooms = @rooms.where("address LIKE ?", "%#{params[:address]}%")
     end
 
