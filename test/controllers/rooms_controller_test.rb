@@ -6,4 +6,3 @@ class RoomsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 end
-
