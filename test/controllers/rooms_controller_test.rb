@@ -2,17 +2,18 @@ require "test_helper"
 
 class RoomsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get rooms_index_url
+    get rooms_url
     assert_response :success
   end
 
   test "should get show" do
-    get rooms_show_url
+    room = Room.create!(name: "テスト", address: "東京", price: 1000)
+    get room_url(room)
     assert_response :success
   end
 
   test "should get new" do
-    get rooms_new_url
+    get new_room_url
     assert_response :success
   end
 end
