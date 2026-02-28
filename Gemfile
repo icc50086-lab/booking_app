@@ -58,4 +58,3 @@ group :test do
   gem "selenium-webdriver"
   gem "minitest", "~> 5.20"
 end
-
