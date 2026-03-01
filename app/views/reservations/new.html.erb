@@ -1,0 +1,37 @@
+<h1>予約する</h1>
+
+<p>施設名：<%= @room.name %></p>
+
+<% if @reservation.errors.any? %>
+  <ul>
+    <% @reservation.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: @reservation,
+  scope: :reservation,
+  url: confirm_room_reservations_path(@room),
+  method: :post,
+  data: { turbo: false },
+  local: true do |f| %>
+  <div>
+    <%= f.label :check_in, "チェックイン" %><br>
+    <%= f.date_field :check_in %>
+  </div>
+
+  <div>
+    <%= f.label :check_out, "チェックアウト" %><br>
+    <%= f.date_field :check_out %>
+  </div>
+
+  <div>
+    <%= f.label :people, "人数" %><br>
+    <%= f.number_field :people, min: 1, value: @reservation&.people %>
+  </div>
+
+  <%= f.submit "予約確認へ" %>
+<% end %>
+
+<p><%= link_to "戻る", room_path(@room) %></p>

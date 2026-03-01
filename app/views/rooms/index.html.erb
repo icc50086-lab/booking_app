@@ -1,0 +1,41 @@
+<h1>施設一覧（自分の登録施設）</h1>
+
+<h2>施設検索</h2>
+
+<%= form_with url: search_rooms_path, method: :get, local: true do |f| %>
+  エリア：
+  <%= f.select :address,
+             options_for_select(["東京", "大阪", "京都", "札幌"], params[:address]),
+             { include_blank: "選択してください" } %>
+
+  キーワード:
+  <%= f.text_field :keyword, value: params[:keyword] %>
+
+  <%= f.submit "検索" %>
+<% end %>
+
+<p><%= link_to "施設を新規登録", new_room_path %></p>
+
+<p>検索結果：<%= @rooms.count %>件</p> 
+
+<ul>
+  <% @rooms.each do |room| %>
+    <li>
+    
+     <% if room.image.attached? %>
+        <%= image_tag room.image, width: 200 %>
+      <% else %>
+        <%= image_tag "default_room.png", width: 200 %>
+      <% end %>
+
+      <br>
+
+      <%= link_to room.name, room_path(room) %>
+      / ¥<%= room.price %> / <%= room.created_at.strftime("%Y/%m/%d") %>
+      <br>
+      <%= room.detail %>
+      <br>
+      <%= room.address %>
+    </li>
+  <% end %>
+</ul>

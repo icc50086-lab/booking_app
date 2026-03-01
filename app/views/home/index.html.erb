@@ -1,0 +1,9 @@
+<h1>宿泊予約アプリ</h1>
+
+<p>
+  <% if user_signed_in? %>
+    ようこそ、<%= current_user.name %> さん
+  <% else %>
+    ログインすると施設の登録や予約ができます。
+  <% end %>
+</p>
